@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 //all apis here....
 //project related apis...
 //get
-app.get('/api/projects', async (req, res) => {
+app.get('/projects', async (req, res) => {
     try {
         const result = await ProjectModel.find()
         res.status(200).send({ result })
@@ -29,7 +29,7 @@ app.get('/api/projects', async (req, res) => {
 })
 
 //post
-app.post('/api/projects', async (req, res) => {
+app.post('/projects', async (req, res) => {
     const newProject = req.body;
     try {
         const result = await ProjectModel.create(newProject)
@@ -40,7 +40,7 @@ app.post('/api/projects', async (req, res) => {
 })
 
 //update
-app.patch('/api/projects/:id', async (req, res) => {
+app.patch('/projects/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const result = await ProjectModel.updateOne({ _id: id }, { $set: req.body })
@@ -51,7 +51,7 @@ app.patch('/api/projects/:id', async (req, res) => {
 })
 
 //delete
-app.delete('/api/projects/:id', async (req, res) => {
+app.delete('/projects/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const result = await ProjectModel.deleteOne({ _id: id })
@@ -61,7 +61,49 @@ app.delete('/api/projects/:id', async (req, res) => {
     }
 })
 
+//testimonials....
+//get
+app.get('/testimonials', async (req, res) => {
+    try {
+        const result = await ProjectModel.find()
+        res.status(200).send({ result })
+    } catch (error) {
+        res.send({ status: 'error', message: error.message })
+    }
+})
 
+//post
+app.post('/testimonials', async (req, res) => {
+    const newProject = req.body;
+    try {
+        const result = await ProjectModel.create(newProject)
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
+
+//update
+app.patch('/testimonials/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await ProjectModel.updateOne({ _id: id }, { $set: req.body })
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
+
+//delete
+app.delete('/testimonials/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await ProjectModel.deleteOne({ _id: id })
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
