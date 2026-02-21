@@ -1,11 +1,14 @@
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose');
 const ProjectModel = require('./Schemas/Project');
 const TestimonialsModel = require('./Schemas/Testimonial');
 const TeamModel = require('./Schemas/Team');
+
 require('dotenv').config()
 const app = express()
 app.use(express.json())
+app.use(cors())
 const port = 3000
 
 mongoose.connect(process.env.URI)
