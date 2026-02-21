@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const ProjectModel = require('./Schemas/Project');
+const TestimonialsModel = require('./Schemas/Testimonial');
+const TeamModel = require('./Schemas/Team');
 require('dotenv').config()
 const app = express()
 app.use(express.json())
@@ -65,7 +67,7 @@ app.delete('/projects/:id', async (req, res) => {
 //get
 app.get('/testimonials', async (req, res) => {
     try {
-        const result = await ProjectModel.find()
+        const result = await TestimonialsModel.find()
         res.status(200).send({ result })
     } catch (error) {
         res.send({ status: 'error', message: error.message })
@@ -74,9 +76,9 @@ app.get('/testimonials', async (req, res) => {
 
 //post
 app.post('/testimonials', async (req, res) => {
-    const newProject = req.body;
+    const newTestimonial = req.body;
     try {
-        const result = await ProjectModel.create(newProject)
+        const result = await TestimonialsModel.create(newTestimonial)
         res.status(200).send({ result })
     } catch (error) {
         res.status(500).send({ status: 'error', message: error.message })
@@ -87,7 +89,7 @@ app.post('/testimonials', async (req, res) => {
 app.patch('/testimonials/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        const result = await ProjectModel.updateOne({ _id: id }, { $set: req.body })
+        const result = await TestimonialsModel.updateOne({ _id: id }, { $set: req.body })
         res.status(200).send({ result })
     } catch (error) {
         res.status(500).send({ status: 'error', message: error.message })
@@ -98,7 +100,50 @@ app.patch('/testimonials/:id', async (req, res) => {
 app.delete('/testimonials/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        const result = await ProjectModel.deleteOne({ _id: id })
+        const result = await TestimonialsModel.deleteOne({ _id: id })
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
+
+//Team....
+//get
+app.get('/team', async (req, res) => {
+    try {
+        const result = await TeamModel.find()
+        res.status(200).send({ result })
+    } catch (error) {
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+//post
+app.post('/team', async (req, res) => {
+    try {
+        const result = await TeamModel.create(req.body)
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
+
+//update
+app.patch('/team/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await TeamModel.updateOne({ _id: id }, { $set: req.body })
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
+
+//delete
+app.delete('/team/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await TeamModel.deleteOne({ _id: id })
         res.status(200).send({ result })
     } catch (error) {
         res.status(500).send({ status: 'error', message: error.message })

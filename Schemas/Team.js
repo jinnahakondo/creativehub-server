@@ -17,3 +17,5 @@ const TeamSchema = mongoose.Schema({
         required: true
     },
 })
+const TeamModel = mongoose.models.Team || mongoose.model("Team", TeamSchema)
+module.exports=TeamModel;
