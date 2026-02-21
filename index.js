@@ -39,6 +39,27 @@ app.post('/api/projects', async (req, res) => {
     }
 })
 
+//update
+app.patch('/api/projects/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await ProjectModel.updateOne({ _id: id }, { $set: req.body })
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
+
+//delete
+app.delete('/api/projects/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await ProjectModel.deleteOne({ _id: id })
+        res.status(200).send({ result })
+    } catch (error) {
+        res.status(500).send({ status: 'error', message: error.message })
+    }
+})
 
 
 
